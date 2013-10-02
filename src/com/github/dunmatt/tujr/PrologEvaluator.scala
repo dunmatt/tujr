@@ -1,6 +1,6 @@
 package com.github.dunmatt.tujr
 
-import alice.tuprolog.Prolog
+import alice.tuprolog.{MalformedGoalException, Prolog}
 import de.jtem.jterm.{InterpreterResult, StringEvaluator}
 // import org.apache.commons.logging.LogFactory
 
@@ -12,8 +12,19 @@ class PrologEvaluator() extends StringEvaluator {
 
   def completeCommand(cmd: String): Array[String] = Array.empty[String]
 
-  def evaluate(cmd: String) = engine match {
+  def evaluate(goal: String) = engine match {
     case None => new InterpreterResult("Prolog instance not set!", true)
-    case Some(prolog) => new InterpreterResult("It worked!!", false)
+    case Some(prolog) => {
+      try {
+        val result = prolog.solve(goal)
+        if (result.isSuccess) {
+          new InterpreterResult(result.toString, false)
+        } else {
+          new InterpreterResult("no.", false)
+        }
+      } catch {
+        case mge: MalformedGoalException => new InterpreterResult("Syntax error: %s".format(mge), true)
+      }
+    }
   }
 }
