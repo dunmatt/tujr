@@ -2,10 +2,8 @@ package com.github.dunmatt.tujr
 
 import alice.tuprolog.{MalformedGoalException, Prolog}
 import de.jtem.jterm.{InterpreterResult, StringEvaluator}
-// import org.apache.commons.logging.LogFactory
 
 class PrologEvaluator() extends StringEvaluator {
-  // val log = LogFactory.getLog(classOf[PrologEvaluator])
   var engine: Option[Prolog] = None
 
   def setProlog(prolog: Prolog) = engine = Option(prolog)
