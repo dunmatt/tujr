@@ -8,6 +8,7 @@ object Demo {
     val viewer = new JRViewer
     viewer.setContent(Primitives.icosahedron())
     viewer.addBasicUI
+    viewer.registerPlugin(new PrologConsole)
     viewer.startup
   }
 }
