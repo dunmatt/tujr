@@ -27,9 +27,16 @@ class PrologEvaluator() extends StringEvaluator {
 
   def completeCommand(cmd: String): Array[String] = commands.filter(_.startsWith(cmd)).toArray
 
-  def evaluate(goal: String) = engine match {
-    case None => new InterpreterResult("Prolog instance not set!", true)
-    case Some(prolog) => {
+  def evaluate(goal: String) = (goal, engine) match {
+    case (_, None) => new InterpreterResult("Prolog instance not set!", true)
+    case (";", Some(prolog)) => {
+      if (prolog.hasOpenAlternatives) {
+        new InterpreterResult(prolog.solveNext.toString, false)
+      } else {
+        new InterpreterResult("no.", false)
+      }
+    }
+    case (_, Some(prolog)) => {
       try {
         val result = prolog.solve(goal)
         if (result.isSuccess) {
