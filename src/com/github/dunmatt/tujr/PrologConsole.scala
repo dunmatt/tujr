@@ -12,7 +12,7 @@ import javax.swing.{BorderFactory, JScrollPane}
 class PrologConsole(prolog: Prolog) extends ShrinkPanelPlugin {
   def getPerspectivePluginClass: Class[View] = classOf[View]
   override def getPluginInfo = {
-    val res = new PluginInfo("tujr", "M@ Dunlap")
+    val res = new PluginInfo("Prolog", "M@ Dunlap")
     res.documentationURL = new URL("https://github.com/dunmatt/tujr")
     res.email = "mattdunlap+tujr@gmail.com"
     res
