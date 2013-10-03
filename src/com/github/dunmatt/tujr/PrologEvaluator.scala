@@ -20,6 +20,7 @@ class PrologEvaluator() extends StringEvaluator {
     case None => Unit
     case Some(prolog) => {
       val libraries = prolog.getCurrentLibraries.toSeq.map(prolog.getLibrary(_))
+      commands = ParSet.empty[String]
       commands = commands ++ theoryParser.findAllMatchIn(libraries.map(_.getTheory).mkString).map(_.group(1))
       commands = commands ++ primitiveParser.findAllMatchIn(libraries.map(_.getPrimitives).mkString).map(_.group(1))
     }
