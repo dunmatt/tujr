@@ -1,4 +1,4 @@
-name := "OMPL4j"
+name := "tujr"
 
 version := "0.1"
 
